@@ -20,6 +20,7 @@ const makeData = (req, res) => {
     name: req.body.name,
     minutes: req.body.minutes,
     date: req.body.day,
+    exerciseType: req.body.exerciseType,
     owner: req.session.account._id,
   };
 

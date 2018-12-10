@@ -4,11 +4,13 @@ import {
   VerticalGridLines,
   HorizontalGridLines,
   XAxis,
-  YAxis
+  YAxis,
+  ArcSeries
 } from "react-vis";
 import $ from "jquery";
+import { Transition, CSSTransitionGroup } from "react-transition-group";
 
-let colors = ["#ED9B40", "#7B9EA8", "#BA3B46"];
+let colors = ["#ED9B40", "#19bec6", "#BA3B46", "#129096", "#a86c2b", "#912e36"];
 
 let premium = false;
 
@@ -23,30 +25,20 @@ const sendAjax = (type, action, data, success) => {
     error: function(xhr, status, error) {
       var messageObj = JSON.parse(xhr.responseText);
       console.dir(xhr);
-      handleError(messageObj.error);
     }
   });
-};
-
-const handleError = message => {
-  alert("Error: " + message);
 };
 
 const handleSubmit = e => {
   e.preventDefault();
 
   if ($("#exerciseText").val() == "" || $("#minutes").val() == "") {
-    handleError("All fields required");
+    //ReactDOM.render(<ErrorMessage render={true} message={"All fields required"}/>, document.querySelector("body"));
+    //ReactDOM.render(<Example />, document.querySelector("body"));
     return false;
   }
 
-  document.querySelector("#overlayFormExercise").style.visibility = "hidden";
-  document.querySelector("#overlayFormExercise").style.display = "none";
-
-  document.querySelector("#overlayFormPassword").style.visibility = "hidden";
-  document.querySelector("#overlayFormPassword").style.display = "none";
-
-  document.querySelector("#vis").style.display = "block";
+  cancel(e);
 
   sendAjax(
     "POST",
@@ -58,6 +50,19 @@ const handleSubmit = e => {
   );
 
   return false;
+};
+
+const cancel = e => {
+  document.querySelector("#overlayFormExercise").style.visibility = "hidden";
+  document.querySelector("#overlayFormExercise").style.display = "none";
+
+  document.querySelector("#overlayFormPassword").style.visibility = "hidden";
+  document.querySelector("#overlayFormPassword").style.display = "none";
+
+  document.querySelector("#overlayWelcome").style.visibility = "hidden";
+  document.querySelector("#overlayWelcome").style.display = "none";
+
+  document.querySelector("#vis").style.display = "block";
 };
 
 const handlePass = e => {
@@ -86,19 +91,38 @@ const ExerciseForm = props => {
       method="POST"
       className="exerciseForm"
     >
-      <label htmlFor="name">Exercise: </label>
+      <label htmlFor="name">Exercise </label>
       <input
         id="exerciseText"
         type="text"
         name="name"
         placeholder="Exercise Type ie. Run"
       />
-      <label htmlFor="minutes">Time Worked Out: </label>
+      <label htmlFor="minutes">Time Worked Out </label>
       <input id="minutes" type="text" name="minutes" placeholder="In minutes" />
-      <label htmlFor="day">Date: </label>
+      <label htmlFor="day">Date </label>
       <input id="day" type="date" name="day" />
+      <div className="radio">
+        <label for="checkLeft">Cardio</label>
+        <input id="checkLeft" name="exerciseType" type="radio" value="cardio" />
+      </div>
+      <div className="radio">
+        <label for="checkRight">Strength</label>
+        <input
+          id="checkRight"
+          name="exerciseType"
+          type="radio"
+          value="strength"
+        />
+      </div>
       <input type="hidden" name="_csrf" value={props.csrf} />
       <input className="makeDataSubmit" type="submit" value="Add Exercise" />
+      <input
+        className="makeDataSubmit1"
+        type="button"
+        value="Cancel"
+        onClick={cancel}
+      />
     </form>
   );
 };
@@ -134,7 +158,24 @@ const PassForm = props => {
       />
       <input type="hidden" name="_csrf" value={props.csrf} />
       <input className="makeDataSubmit" type="submit" value="Confirm Change" />
+      <input
+        className="makeDataSubmit1"
+        type="button"
+        value="Cancel"
+        onClick={cancel}
+      />
     </form>
+  );
+};
+
+const Welcome = props => {
+  return (
+    <div id="welcome">
+      <h1>Welcome to premium! You now have access to new features!</h1>
+      <button className="cancel" onClick={cancel}>
+        Cool!
+      </button>
+    </div>
   );
 };
 
@@ -153,18 +194,55 @@ const DataList = function(props) {
     );
   }
 
+  console.dir(props.data);
+
   const domoNodes = props.data.map(function(data) {
     document.querySelector("#vis").style.display = "block";
+    const num = Math.floor(Math.random() * 3);
+    let comp = 3;
+    switch (num) {
+      case 0:
+        comp = 4;
+        break;
+      case 2:
+        comp = 5;
+        break;
+    }
 
+    const testData = [
+      {angle0: 0, angle: 6*`${data.minutes}`*(Math.PI/180), radius: 50, radius0: 40},
+      {angle0: 0, angle: 2*Math.PI, opacity: 0.2, radius: 50, radius0: 40},
+    ]
+    
     return (
       <div
         key={data._id}
         className="dataObj"
-        style={{ backgroundColor: colors[Math.floor(Math.random() * 3)] }}
+        style={{
+          backgroundImage: `linear-gradient(${colors[num]}, ${colors[comp]})`
+        }}
       >
+        {data.exerciseType === "cardio" ? (
+          <img src="/assets/img/running-solid.svg" alt="run" />
+        ) : null}
+        {data.exerciseType === "strength" ? (
+          <img src="/assets/img/dumbbell-solid.svg" alt="weight" />
+        ) : null}
         <h3 className="activity"> {data.name} </h3>
         <h3 className="timeof"> {data.minutes} minutes</h3>
         <h3 className="date"> {data.date.substring(0, 10)} </h3>
+
+
+      <XYPlot className="targetTime" xDomain={[-50, 50]} yDomain={[-50, 50]} width={200} height={200}>
+          <ArcSeries
+            animation
+            radiusType={"literal"}
+            center={{ x: 0, y: 0 }}
+            data={testData}
+            colorType={"literal"}
+            color={"black"}
+          />
+        </XYPlot>
       </div>
     );
   });
@@ -216,7 +294,6 @@ const Graph = props => {
       }
     }
   }
-  console.dir(sortedData);
   for (let n = 0; n < data.length; n++) {
     data[n].x = sortedData[n][0];
     data[n].y = sortedData[n][1];
@@ -225,7 +302,7 @@ const Graph = props => {
   return (
     <div className="graph">
       <h1>Number of Minutes Exercised per Day</h1>
-      <XYPlot height={400} width={500} xType={"ordinal"}>
+      <XYPlot height={400} width={500} xType={"ordinal"} animation>
         <VerticalBarSeries data={data} />
         <VerticalGridLines />
         <HorizontalGridLines />
@@ -260,8 +337,6 @@ const Premium = props => {
       }
     }
   }
-
-  console.dir(countedArray);
 
   return (
     <div>
@@ -334,6 +409,11 @@ const setup = function(csrf) {
     document.querySelector("#overlayFormPassword")
   );
 
+  ReactDOM.render(
+    <Welcome csrf={csrf} />,
+    document.querySelector("#overlayWelcome")
+  );
+
   ReactDOM.render(<DataList data={[]} />, document.querySelector("#data"));
 
   let dataVisComponent = ReactDOM.render(
@@ -343,8 +423,12 @@ const setup = function(csrf) {
 
   document.querySelector("#premium").onclick = () => {
     dataVisComponent.activatePremium();
+
+    if (!premium) {
+      document.querySelector("#overlayWelcome").style.visibility = "visible";
+      document.querySelector("#overlayWelcome").style.display = "block";
+    }
     premium = !premium;
-    console.dir(premium);
   };
 
   loadDomosFromServer();

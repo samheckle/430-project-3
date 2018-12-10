@@ -40,12 +40,13 @@ nav {
       width: 150px; }
     nav a#premium {
       float: right;
-      background-color: #BA3B46;
+      background-color: #7B9EA8;
       position: relative; }
     nav a.logout {
       position: relative;
       float: right;
-      margin-right: 2%; }
+      margin-right: 2%;
+      background-color: #7B9EA8; }
   nav #loginButton {
     width: 150px; }
   nav #changePass {
@@ -97,38 +98,88 @@ nav:nth-child(1) {
   transition: background-color 0.8s ease;
   background-color: #191D32; }
 
-.exerciseForm, .passForm {
+.exerciseForm,
+.passForm {
   background-color: #191D32;
   opacity: 1;
-  width: 50%;
+  width: 30%;
   position: absolute;
   top: 20%;
-  left: 20%;
+  left: 30%;
   border-radius: 20px;
-  text-align: center;
   font-size: 24px;
-  padding: 5%; }
-  .exerciseForm label, .passForm label {
+  padding: 5%;
+  -webkit-transition: width 2s linear 1s;
+  /* For Safari 3.1 to 6.0 */
+  transition: visibility 2s linear 1s;
+  opacity: 1; }
+  .exerciseForm label,
+  .passForm label {
     display: inline-block;
-    margin-left: 10px;
-    margin-right: 10px;
-    font-size: 1em;
+    font-size: .7em;
     color: white; }
-  .exerciseForm input, .passForm input {
+  .exerciseForm input,
+  .passForm input {
     display: block;
     margin: auto;
-    margin-bottom: 5%; }
-  .exerciseForm .makeDataSubmit, .passForm .makeDataSubmit {
+    margin-bottom: 5%;
+    width: 100%;
+    border-radius: 2px;
+    border: none;
+    padding: 2%; }
+  .exerciseForm .makeDataSubmit,
+  .passForm .makeDataSubmit {
     transition: background-color 0.4s ease;
     display: inline;
-    background-color: #282f44;
+    background-color: #7B9EA8;
     border-radius: 2px;
     color: white;
     text-decoration: none;
-    margin-left: 10px; }
-  .exerciseForm .makeDataSubmit:hover, .passForm .makeDataSubmit:hover {
+    margin: auto;
+    width: 45%;
+    border: none;
+    margin-left: 3%; }
+  .exerciseForm .makeDataSubmit1,
+  .passForm .makeDataSubmit1 {
+    transition: background-color 0.4s ease;
+    display: inline;
+    background-color: #BA3B46;
+    border-radius: 2px;
+    color: white;
+    text-decoration: none;
+    margin: auto;
+    width: 45%;
+    border: none;
+    margin-left: 3%; }
+  .exerciseForm .makeDataSubmit:hover,
+  .passForm .makeDataSubmit:hover {
     transition: background-color 0.4s ease;
     background-color: #282f44; }
+
+#welcome {
+  background-color: #191D32;
+  opacity: 1;
+  width: 30%;
+  position: absolute;
+  top: 20%;
+  left: 30%;
+  border-radius: 20px;
+  font-size: 24px;
+  padding: 5%;
+  color: white; }
+  #welcome .cancel {
+    transition: background-color 0.4s ease;
+    text-align: center;
+    font-size: 1.2em;
+    width: 150px;
+    background-color: #ED9B40;
+    padding: 3px 0px;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    border-style: none;
+    display: block;
+    margin: auto; }
 
 .mainForm {
   width: 100%;
@@ -213,26 +264,27 @@ nav:nth-child(1) {
   margin-top: 100px; }
 
 .dataObj {
-  width: 30%;
-  background-color: #ED9B40;
-  display: inline-block;
+  width: 80%;
+  background-color: #191D32;
+  display: block;
   overflow: hidden;
-  margin: 1.5%; }
+  margin: auto;
+  border-radius: 4px;
+  margin-bottom: 2%;
+  text-align: center;
+  position: relative; }
   .dataObj:hover {
     transition: border-color 0.2s ease-out;
     border-color: rgba(255, 255, 255, 0.8);
     transition: background-color 2.6s ease-out;
-    background-color: #efa757; }
+    background-color: #222743; }
 
 h3.activity {
   font-weight: bold;
-  margin-left: 5%;
-  font-size: 2em;
-  display: block; }
+  font-size: 2em; }
 
 h3.timeof, h3.date {
   width: 100%;
-  margin-left: 15%;
   font-size: 1.5em;
   font-weight: normal; }
 
@@ -297,7 +349,8 @@ rect {
   stroke: #191D32 !important; }
 
 #overlayFormExercise,
-#overlayFormPassword {
+#overlayFormPassword,
+#overlayWelcome {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.5);
   top: 0;
@@ -310,3 +363,27 @@ rect {
 
 .graph {
   display: inline-block; }
+
+.radio {
+  text-align: center; }
+  .radio label {
+    width: 45%;
+    display: inline-block; }
+  .radio input {
+    width: 45%;
+    display: inline-block; }
+
+img {
+  width: 10%;
+  float: left;
+  display: inline;
+  position: absolute;
+  top: 20%;
+  left: 20%; }
+
+.targetTime {
+  position: absolute;
+  top: 10%;
+  right: 15%;
+  fill: black;
+  stroke: black; }

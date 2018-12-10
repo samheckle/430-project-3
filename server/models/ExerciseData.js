@@ -23,6 +23,10 @@ const DataSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  exerciseType: {
+    type: String,
+    required: false,
+  },
 
   owner: {
     type: mongoose.Schema.ObjectId,
@@ -39,6 +43,8 @@ const DataSchema = new mongoose.Schema({
 DataSchema.statics.toAPI = (doc) => ({
   name: doc.name,
   minutes: doc.minutes,
+  date: doc.date,
+  exerciseType: doc.exerciseType,
 });
 
 DataSchema.statics.findByOwner = (ownerId, callback) => {
@@ -46,7 +52,7 @@ DataSchema.statics.findByOwner = (ownerId, callback) => {
     owner: convertId(ownerId),
   };
 
-  return DataModel.find(search).select('name minutes date').exec(callback);
+  return DataModel.find(search).select('name minutes date exerciseType').exec(callback);
 };
 
 DataModel = mongoose.model('ExerciseData', DataSchema);
