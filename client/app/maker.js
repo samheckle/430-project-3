@@ -25,16 +25,22 @@ const sendAjax = (type, action, data, success) => {
     error: function(xhr, status, error) {
       var messageObj = JSON.parse(xhr.responseText);
       console.dir(xhr);
+      handleError(messageObj.error);
     }
   });
 };
+
+
+const handleError = (message) => {
+  alert("Error: " + message);
+};
+
 
 const handleSubmit = e => {
   e.preventDefault();
 
   if ($("#exerciseText").val() == "" || $("#minutes").val() == "") {
-    //ReactDOM.render(<ErrorMessage render={true} message={"All fields required"}/>, document.querySelector("body"));
-    //ReactDOM.render(<Example />, document.querySelector("body"));
+    handleError("All fields required");
     return false;
   }
 
