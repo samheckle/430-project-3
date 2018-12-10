@@ -25,14 +25,26 @@ const sendAjax = (type, action, data, success) => {
     error: function(xhr, status, error) {
       var messageObj = JSON.parse(xhr.responseText);
       console.dir(xhr);
-      handleError(messageObj.error);
+      
+      ReactDOM.render(handleError(messageObj.error), document.querySelector("#errorMaker"));
     }
   });
 };
 
 
-const handleError = (message) => {
-  alert("Error: " + message);
+const handleError = (props) => {
+
+  document.querySelector("#errorMaker").style.visibility = "visible";
+  document.querySelector("#errorMaker").style.display = "block";
+  console.dir("test")
+  return(
+      <div>
+          <div className="arrowLeft"></div>
+          <div className="errorMessage">
+              <h3>{props}</h3>
+          </div>
+      </div>
+  )
 };
 
 
@@ -40,7 +52,7 @@ const handleSubmit = e => {
   e.preventDefault();
 
   if ($("#exerciseText").val() == "" || $("#minutes").val() == "") {
-    handleError("All fields required");
+    ReactDOM.render(handleError("All fields required"), document.querySelector("#errorMaker"));
     return false;
   }
 
@@ -68,10 +80,23 @@ const cancel = e => {
   document.querySelector("#overlayWelcome").style.visibility = "hidden";
   document.querySelector("#overlayWelcome").style.display = "none";
 
+
+  document.querySelector("#errorMaker").style.visibility = "hidden";
+  document.querySelector("#errorMaker").style.display = "none";
+
   document.querySelector("#vis").style.display = "block";
 };
 
 const handlePass = e => {
+  e.preventDefault();
+
+  if ($("#newPass").val() == "" || $("#newPass2").val() == "") {
+    ReactDOM.render(handleError("All fields required"), document.querySelector("#errorMaker"));
+    return false;
+  }
+
+  cancel(e);
+
   sendAjax(
     "POST",
     $("#passForm").attr("action"),
@@ -80,6 +105,8 @@ const handlePass = e => {
       loadDomosFromServer();
     }
   );
+
+  return false;
 };
 
 const ExerciseForm = props => {

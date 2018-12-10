@@ -24,7 +24,7 @@ nav {
     margin-left: 2%;
     font-size: 1.2em;
     width: 100px;
-    background-color: #ED9B40;
+    background-image: linear-gradient(#7B9EA8, #6a8891);
     text-decoration: none;
     border-radius: 4px;
     border-style: none;
@@ -37,22 +37,20 @@ nav {
         display: block;
         margin-top: 0; } }
     nav a#add {
-      width: 150px; }
+      width: 150px;
+      background-image: linear-gradient(#ED9B40, #a86c2b); }
     nav a#premium {
       float: right;
-      background-color: #7B9EA8;
       position: relative; }
     nav a.logout {
       position: relative;
       float: right;
-      margin-right: 2%;
-      background-color: #7B9EA8; }
+      margin-right: 2%; }
   nav #loginButton {
     width: 150px; }
   nav #changePass {
     float: right;
     width: 200px;
-    background-color: #7B9EA8;
     position: relative; }
 
 #addFake {
@@ -63,7 +61,7 @@ nav {
   text-align: center;
   margin-left: 2%;
   font-size: .8em;
-  background-color: #ED9B40;
+  background-image: linear-gradient(#ED9B40, #a86c2b);
   text-decoration: none;
   border-radius: 4px;
   border-style: none;
@@ -408,3 +406,29 @@ img.exerciseType {
     border-bottom: 5px solid #F00;
     position: absolute;
     top: 14.4px; }
+
+#errorMaker {
+  position: absolute;
+  float: right;
+  top: 26.5%;
+  right: 15%;
+  z-index: 10; }
+  #errorMaker .arrowLeft {
+    position: absolute;
+    left: -5px;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-right: 5px solid #F00; }
+  #errorMaker .errorMessage {
+    width: 200;
+    background-color: #F00;
+    color: white;
+    border-radius: 2%;
+    text-align: center;
+    position: relative; }
+  @media only screen and (min-width: 1200px) {
+    #errorMaker {
+      right: 20%;
+      top: 30%; } }

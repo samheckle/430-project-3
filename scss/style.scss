@@ -1,6 +1,9 @@
 $accent1: #BA3B46;
+$accent1dark: #912e36;
 $accent2: #7B9EA8;
+$accent2dark: #6a8891;
 $accent3: #ED9B40;
+$accent3dark: #a86c2b;
 $main: #191D32;
 $dark1: #282f44;
 
@@ -49,7 +52,7 @@ nav {
         margin-left: 2%;
         font-size: 1.2em;
         width: 100px;
-        background-color: $accent3;
+        background-image: linear-gradient($accent2, $accent2dark);
         text-decoration: none;
         border-radius: 4px;
         border-style: none;
@@ -65,11 +68,11 @@ nav {
 
         &#add {
             width: 150px;
+            background-image: linear-gradient($accent3, $accent3dark);
         }
 
         &#premium {
             float: right;
-            background-color: $accent2;
             position: relative;
         }
 
@@ -77,7 +80,6 @@ nav {
             position: relative;
             float: right;
             margin-right: 2%;
-            background-color: $accent2;
         }
     }
 
@@ -88,7 +90,6 @@ nav {
     #changePass {
         float: right;
         width: 200px;
-        background-color: $accent2;
         position: relative;
     }
 }
@@ -101,7 +102,7 @@ nav {
     text-align: center;
     margin-left: 2%;
     font-size: .8em;
-    background-color: #ED9B40;
+    background-image: linear-gradient($accent3, $accent3dark);
     text-decoration: none;
     border-radius: 4px;
     border-style: none;
@@ -512,8 +513,7 @@ img.exerciseType {
         color: white;
         border-radius: 2%;
         text-align: center;
-        position: relative;
-          
+        position: relative;  
     }
     .arrowUp {
         width: 0; 
@@ -527,3 +527,36 @@ img.exerciseType {
       }
 }
 
+#errorMaker{
+
+    position: absolute;
+    float: right;   
+     top: 26.5%;
+    right: 15%;
+    z-index:10;
+
+    .arrowLeft {
+        position: absolute;
+        left: -5px;
+        width: 0; 
+        height: 0; 
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent; 
+        
+        border-right:5px solid #F00; 
+      }
+
+      .errorMessage {
+        width: 200;
+        background-color: #F00;
+        color: white;
+        border-radius: 2%;
+        text-align: center;
+        position: relative;  
+    }
+
+    @media #{$extra-large} {
+        right: 20%;
+        top: 30%;
+    }
+}
