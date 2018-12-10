@@ -373,7 +373,7 @@ rect {
     width: 45%;
     display: inline-block; }
 
-img {
+img.exerciseType {
   width: 10%;
   float: left;
   display: inline;
@@ -387,3 +387,24 @@ img {
   right: 15%;
   fill: black;
   stroke: black; }
+
+#error {
+  position: absolute;
+  float: right;
+  top: 30;
+  left: 3.5%; }
+  #error .errorMessage {
+    width: 200;
+    background-color: #F00;
+    color: white;
+    border-radius: 2%;
+    text-align: center;
+    position: relative; }
+  #error .arrowUp {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #F00;
+    position: absolute;
+    top: 14.4px; }

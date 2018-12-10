@@ -12,7 +12,7 @@ var handleLogin = function handleLogin(e) {
     e.preventDefault();
 
     if ($("#user").val() == '' || $("#pass").val() == '') {
-        handleError("Username or password is empty.");
+        ReactDOM.render(handleError("Username and password required"), document.querySelector("#error"));
         return false;
     }
 
@@ -24,12 +24,12 @@ var handleSignup = function handleSignup(e) {
     e.preventDefault();
 
     if ($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
-        handleError("All fields required");
+        ReactDOM.render(handleError("All fields required"), document.querySelector("#error"));
         return false;
     }
 
     if ($("#pass").val() !== $("#pass2").val()) {
-        handleError("passwords do not match");
+        ReactDOM.render(handleError("passwords do not match"), document.querySelector("#error"));
         return false;
     }
 
@@ -151,6 +151,8 @@ var LoginPage = function (_React$Component2) {
     _createClass(LoginPage, [{
         key: "signUp",
         value: function signUp() {
+            document.querySelector("#error").style.visibility = "hidden";
+            document.querySelector("#error").style.display = "none";
             this.setState(function (state) {
                 return {
                     signUpClick: true,
@@ -161,6 +163,8 @@ var LoginPage = function (_React$Component2) {
     }, {
         key: "login",
         value: function login() {
+            document.querySelector("#error").style.visibility = "hidden";
+            document.querySelector("#error").style.display = "none";
             this.setState(function (state) {
                 return {
                     signUpClick: false,
@@ -176,7 +180,8 @@ var LoginPage = function (_React$Component2) {
                 null,
                 this.state.loginClick ? React.createElement(LoginWindow, { csrf: this.props.csrf, signUp: this.signUp }) : null,
                 this.state.signUpClick ? React.createElement(SignupForm, { csrf: this.props.csrf, login: this.login }) : null,
-                React.createElement(Main, null)
+                React.createElement(Main, null),
+                React.createElement("div", { id: "error" })
             );
         }
     }]);
@@ -212,6 +217,23 @@ var sendAjax = function sendAjax(type, action, data, success) {
     });
 };
 
-var handleError = function handleError(message) {
-    alert("Error: " + message);
+var handleError = function handleError(props) {
+
+    document.querySelector("#error").style.visibility = "visible";
+    document.querySelector("#error").style.display = "block";
+    console.dir("test");
+    return React.createElement(
+        "div",
+        null,
+        React.createElement("div", { className: "arrowUp" }),
+        React.createElement(
+            "div",
+            { className: "errorMessage" },
+            React.createElement(
+                "h3",
+                null,
+                props
+            )
+        )
+    );
 };

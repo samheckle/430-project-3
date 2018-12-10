@@ -229,10 +229,10 @@ const DataList = function(props) {
         }}
       >
         {data.exerciseType === "cardio" ? (
-          <img src="/assets/img/running-solid.svg" alt="run" />
+          <img className="exerciseType" src="/assets/img/running-solid.svg" alt="run" />
         ) : null}
         {data.exerciseType === "strength" ? (
-          <img src="/assets/img/dumbbell-solid.svg" alt="weight" />
+          <img className="exerciseType" src="/assets/img/dumbbell-solid.svg" alt="weight" />
         ) : null}
         <h3 className="activity"> {data.name} </h3>
         <h3 className="timeof"> {data.minutes} minutes</h3>

@@ -17,6 +17,17 @@ const sendAjax = (type, action, data, success) => {
     })
 }
 
-const handleError = (message) => {
-    alert("Error: " + message);
+const handleError = (props) => {
+
+    document.querySelector("#error").style.visibility = "visible";
+    document.querySelector("#error").style.display = "block";
+    console.dir("test")
+    return(
+        <div>
+            <div className="arrowUp"></div>
+            <div className="errorMessage">
+                <h3>{props}</h3>
+            </div>
+        </div>
+    )
 };

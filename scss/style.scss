@@ -221,7 +221,7 @@ nav:nth-child(1) {
     padding: 5%;
     color: white;
 
-    .cancel{
+    .cancel {
         transition: background-color 0.4s ease;
         text-align: center;
         font-size: 1.2em;
@@ -232,7 +232,7 @@ nav:nth-child(1) {
         text-decoration: none;
         border-radius: 4px;
         border-style: none;
-        display:block;
+        display: block;
         margin: auto;
     }
 }
@@ -341,7 +341,7 @@ nav:nth-child(1) {
     margin: auto;
     border-radius: 4px;
     margin-bottom: 2%;
-    text-align:center;
+    text-align: center;
     position: relative;
 
     &:hover {
@@ -482,7 +482,7 @@ rect {
     }
 }
 
-img{
+img.exerciseType {
     width: 10%;
     float: left;
     display: inline;
@@ -491,10 +491,39 @@ img{
     left: 20%;
 }
 
-.targetTime{
+.targetTime {
     position: absolute;
     top: 10%;
     right: 15%;
     fill: black;
     stroke: black;
 }
+
+#error {
+    position: absolute;
+    float: right;
+    top: 30;
+    left: 3.5%;
+
+
+    .errorMessage {
+        width: 200;
+        background-color: #F00;
+        color: white;
+        border-radius: 2%;
+        text-align: center;
+        position: relative;
+          
+    }
+    .arrowUp {
+        width: 0; 
+        height: 0; 
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        
+        border-bottom: 5px solid #F00;
+        position: absolute;
+        top: 14.4px;
+      }
+}
+

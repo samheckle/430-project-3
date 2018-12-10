@@ -2,7 +2,7 @@ const handleLogin = (e) => {
     e.preventDefault();
 
     if ($("#user").val() == '' || $("#pass").val() == '') {
-        handleError("Username or password is empty.");
+        ReactDOM.render(handleError("Username and password required"), document.querySelector("#error"));
         return false;
     }
 
@@ -14,12 +14,12 @@ const handleSignup = (e) => {
     e.preventDefault();
 
     if ($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
-        handleError("All fields required");
+        ReactDOM.render(handleError("All fields required"), document.querySelector("#error"));
         return false;
     }
 
     if ($("#pass").val() !== $("#pass2").val()) {
-        handleError("passwords do not match");
+        ReactDOM.render(handleError("passwords do not match"), document.querySelector("#error"));
         return false;
     }
 
@@ -93,6 +93,8 @@ class LoginPage extends React.Component {
     }
 
     signUp() {
+        document.querySelector("#error").style.visibility = "hidden";
+        document.querySelector("#error").style.display = "none";
         this.setState(state => ({
             signUpClick: true,
             loginClick: false
@@ -100,6 +102,8 @@ class LoginPage extends React.Component {
     }
 
     login() {
+        document.querySelector("#error").style.visibility = "hidden";
+        document.querySelector("#error").style.display = "none";
         this.setState(state => ({
             signUpClick: false,
             loginClick: true
@@ -112,6 +116,7 @@ class LoginPage extends React.Component {
                 {this.state.loginClick ? <LoginWindow csrf={this.props.csrf} signUp={this.signUp}></LoginWindow> : null}
                 {this.state.signUpClick ? <SignupForm csrf={this.props.csrf} login={this.login}></SignupForm> : null}
                 <Main></Main>
+                <div id="error"></div>
             </div>
         )
     }
